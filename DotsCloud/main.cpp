@@ -1,6 +1,7 @@
-﻿#include "test.h"
+﻿///#include "test.h"
+#include "GenerateDots.h"
+#include "DotsInOut.h"
 
-void writeFile(const string& file,const Pareja<double, double> list[],const int& num_dots);
 /**
 	argv[0] -> ".exe"
 	argv[1] -> "Num dots"
@@ -10,21 +11,32 @@ void writeFile(const string& file,const Pareja<double, double> list[],const int&
 	argv[5] -> "Range of dots {-argv[5],+argv[5]}"
 */
 int main(int argc, const char* argv[]){
-	srand((int)time(NULL));
-	
-	if(argc == 6){
+	/*Pair<double, double>* list = new Pair<double, double>[100];
+	Pair<double, double>* list2; 
+	if(fillListDots(100,100,100,list)==0){
+		writeFile("hola.txt",list,100);
+		
+		int n;
+		if(readFile("hola.txt",list2,n)==0){
+			writeFile("hola2.txt",list2,n);
+		}
+	}*/
+
+	if(argc == 6 && (atoi(argv[2]))==0){
 		// Create list of dots
-		Pareja<double, double>* list = new Pareja<double, double>[atoi(argv[1])];
-		if(generaPuntos(atoi(argv[1]),atoi(argv[4]),atoi(argv[5]),list)==0){
+		Pair<double, double>* list = new Pair<double, double>[atoi(argv[1])];
+		if(fillListDots(atoi(argv[1]),atoi(argv[4]),atoi(argv[5]),list)==0){
 			writeFile(argv[3],list,atoi(argv[1]));
 		}
 	}else if(argc == 6){
 		// Execute program
+		int n;
+		Pair<double, double>* list; 
+		if(readFile(argv[3],list,n)==0){
+			
+		}
 	}
 
-	//system("dir");
-	//system("DotsCloud.exe");
-	//system("dir");
 	/*for(int i = 1 ; i <= 15; i++){
 		list<Pareja<double,double>> listaPuntos = generaPuntos(i*1000);
 
@@ -33,14 +45,4 @@ int main(int argc, const char* argv[]){
 	}*/
 	system("pause");
 	return 0;
-}
-
-void writeFile(const string& fileName,const Pareja<double, double> list[],const int& num_dots){
-	std::ofstream file;
-	file.open(fileName);
-	file << num_dots << endl;
-	for(int i = 0; i < num_dots;i++){
-		file << list[i].primero() << " " << list[i].segundo() << endl;
-	}
-	file.close();
 }

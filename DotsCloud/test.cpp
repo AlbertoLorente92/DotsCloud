@@ -93,6 +93,7 @@ int generaPuntos(int num_dots,int precision,int range,Pareja<double, double> lis
 		return -2;
 	if(range <= 0)
 		return -3;
+	srand((int)time(NULL));
 
 	for(int i = 0; i < num_dots; i++){
 		list[i] = (Pareja<double,double> (((rand() % (precision*range*2))/(double)precision) -(double)range,((rand() % (precision*range*2))/(double)precision) -(double)range));

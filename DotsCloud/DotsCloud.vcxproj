@@ -64,13 +64,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DotsInOut.cpp" />
+    <ClCompile Include="GenerateDots.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ordenacion.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Tiempos.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DotsInOut.h" />
+    <ClInclude Include="GenerateDots.h" />
     <ClInclude Include="ordenacion.h" />
+    <ClInclude Include="Pair.h" />
     <ClInclude Include="Pareja.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="Tiempos.h" />
