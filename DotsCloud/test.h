@@ -6,7 +6,6 @@
 
 #include <list>
 
-#include <stdlib.h>
 #include <time.h>
 #include <cstdlib>
 #include <math.h>

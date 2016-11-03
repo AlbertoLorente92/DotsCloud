@@ -1,6 +1,7 @@
 #ifndef ORDENACION_H
 #define ORDENACION_H
 #include "Pareja.h"
+#include <stdlib.h>
 
 /*			 ORDENACION RAPIDA
 

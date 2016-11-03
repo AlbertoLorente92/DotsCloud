@@ -27,13 +27,6 @@ void busca(int i,int tipo,list<Pareja<double,double> > &listaPuntos){
 			cout << endl;	
 		break;
 
-		case 3:											//Mezcla
-			tIni = clock();	
-			cout << "Logaritmica - " << " N.ptos = " << i;
-			cout << " Distancia = " << solucionDirecta(listaPuntos); //SolucionMezclada
-			tFin = clock();
-		break;
-
 		default:
 			b=false;
 		break;
@@ -123,9 +116,9 @@ double solucionDirecta(list<Pareja<double, double> > &puntos){
 		while(itCompara != puntos.end()){
 				double distanciaNueva = distanciaEntrePuntos(*itPunto,*itCompara);
 
-				if(distanciaNueva<distancia)
-					distancia=distanciaNueva;
-
+				if (distanciaNueva < distancia){
+					distancia = distanciaNueva;
+				}
 			itCompara++;
 		}
 
