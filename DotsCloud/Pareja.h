@@ -1,6 +1,5 @@
 #ifndef __PAREJA_H
 #define __PAREJA_H
-#include "Lista.h"
 
 template<class T,class E>
 class Pareja {

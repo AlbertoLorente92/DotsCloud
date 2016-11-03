@@ -71,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Excepciones.h" />
-    <ClInclude Include="Lista.h" />
     <ClInclude Include="ordenacion.h" />
     <ClInclude Include="Pareja.h" />
     <ClInclude Include="test.h" />

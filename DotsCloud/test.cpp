@@ -11,13 +11,13 @@
 
 using namespace std;
 
-void busca(int i,int tipo,Lista<Pareja<double,double> > &listaPuntos){
+void busca(int i,int tipo,list<Pareja<double,double> > &listaPuntos){
 	float tiempo;
 	clock_t tIni=0;		
 	clock_t tFin=0;	
 	bool b = true;
 	double distancia;
-	Lista<Pareja<double,double> > L;
+	list<Pareja<double, double> > L;
 
 	switch(tipo){
 		case 1:											//Cuadratico
@@ -32,7 +32,7 @@ void busca(int i,int tipo,Lista<Pareja<double,double> > &listaPuntos){
 			tIni = clock();	
 			cout << "Logaritmica - " << " N.ptos = " << i;
 			ordenaPorEjeX(listaPuntos);
-			distancia = solucionLogaritmica(listaPuntos,listaPuntos.numElems());
+			distancia = solucionLogaritmica(listaPuntos,listaPuntos.size());
 			tFin = clock();
 			cout << " Distancia = " << distancia; //SolucionLogaritmica
 			cout << endl;	
@@ -62,57 +62,57 @@ void busca(int i,int tipo,Lista<Pareja<double,double> > &listaPuntos){
 	}
 }
 
-void ordenaPorEjeX(Lista<Pareja<double,double> > &puntos){
-	Pareja<double,double> *a = new Pareja<double,double>[puntos.numElems()];
-	Lista<Pareja<double,double> >::Iterador it = puntos.principio();
-	int N = puntos.numElems();
+void ordenaPorEjeX(list<Pareja<double, double> > &puntos){
+	Pareja<double,double> *a = new Pareja<double,double>[puntos.size()];
+	list<Pareja<double, double>>::iterator it = puntos.begin();
+	int N = puntos.size();
 	int i = 0;
-	while(it!=puntos.final()){
-		a[i]=it.elem();
-		it.avanza();
-		puntos.resto();
+	while(it!=puntos.end()){
+		a[i]=*it;
+		it++;
+		puntos.pop_front();
 		i++;
 	}
 
 	quickSort(a,N);
 	
 	for(int j = 0; j < N;j++){
-		puntos.ponDr(a[j]);
+		puntos.push_back(a[j]);
 	}
 	
 	delete[] a;
 }
 
-void ordenaPorEjeY(Lista<Pareja<double,double> > &puntos){
-	Pareja<double,double> *a = new Pareja<double,double>[puntos.numElems()];
-	Lista<Pareja<double,double> >::Iterador it = puntos.principio();
-	int N = puntos.numElems();
+void ordenaPorEjeY(list<Pareja<double,double>> &puntos){
+	Pareja<double,double> *a = new Pareja<double,double>[puntos.size()];
+	list<Pareja<double, double>>::iterator it = puntos.begin();
+	int N = puntos.size();
 	int i = 0;
-	while(it!=puntos.final()){
-		a[i]=it.elem();
-		it.avanza();
-		puntos.resto();
+	while(it!=puntos.end()){
+		a[i]=*it;
+		it++;
+		puntos.pop_front();
 		i++;
 	}
 	
 	quickSortY(a,N);
 	
 	for(int j = 0; j < N;j++){
-		puntos.ponDr(a[j]);
+		puntos.push_back(a[j]);
 	}
 	
 	delete[] a;
 }
 
-Lista<Pareja<double,double> > generaPuntos(int n){
-	Lista<Pareja<double,double> > listaPuntos;
+list<Pareja<double, double>> generaPuntos(int n){
+	list<Pareja<double, double>> listaPuntos;
 
 	for(int i = 0; i < n; i++){
 		double n1 = (rand() % 20000)/100.00 -100;
 		double n2 = (rand() % 20000)/100.00 -100;
 		Pareja<double,double> a(n1,n2);
 
-		listaPuntos.ponDr(a);
+		listaPuntos.push_back(a);
 	}
 
 	return listaPuntos;
@@ -122,121 +122,122 @@ double distanciaEntrePuntos(Pareja<double,double> p1,Pareja<double,double> p2){
 	return sqrt(pow(p1.primero()-p2.primero(),2) + pow(p1.segundo()-p2.segundo(),2));
 }
 
-double solucionDirecta(Lista<Pareja<double,double> > &puntos){
+double solucionDirecta(list<Pareja<double, double> > &puntos){
 	double distancia=285;
 
-	Lista<Pareja<double,double> >::Iterador itPunto = puntos.principio();// puntos.principio();
+	list<Pareja<double, double> >::iterator itPunto = puntos.begin();// puntos.principio();
 
-	while(itPunto != puntos.final()){
-		Lista<Pareja<double,double> >::Iterador itCompara = itPunto;
-		itCompara.avanza();
+	while(itPunto != puntos.end()){
+		list<Pareja<double, double> >::iterator itCompara = itPunto;
+		itCompara++;
 
-		while(itCompara != puntos.final()){
-				double distanciaNueva = distanciaEntrePuntos(itPunto.elem(),itCompara.elem());
+		while(itCompara != puntos.end()){
+				double distanciaNueva = distanciaEntrePuntos(*itPunto,*itCompara);
 
 				if(distanciaNueva<distancia)
 					distancia=distanciaNueva;
 
-			itCompara.avanza();
+			itCompara++;
 		}
 
-		itPunto.avanza();
+		itPunto++;
 	}
 
 	return distancia;
 }
 
-Pareja<Lista<Pareja<double,double> >,Lista<Pareja<double,double> > > divideLista(Lista<Pareja<double,double> > &puntos,int m1){
-	Lista<Pareja<double,double> > izquierda;
-	Lista<Pareja<double,double> > derecha;
+Pareja<list<Pareja<double, double>>, list<Pareja<double, double>>> divideLista(list<Pareja<double, double>> &puntos, int m1){
+	list<Pareja<double, double> > izquierda;
+	list<Pareja<double, double> > derecha;
 	
-	Lista<Pareja<double,double> >::Iterador it = puntos.principio();
+	list<Pareja<double, double> >::iterator it = puntos.begin();
 	int i=0;
 	while(i<m1){
-		izquierda.ponDr(it.elem());
-		it.avanza();
+		izquierda.push_back(*it);
+		it++;
 		i++;
 	}
-	while(i<puntos.numElems()){
-		derecha.ponDr(it.elem());
-		it.avanza();
+	while(i<puntos.size()){
+		derecha.push_back(*it);
+		it++;
 		i++;
 	}
 
-	Pareja<Lista<Pareja<double,double> >,Lista<Pareja<double,double> > > P(izquierda,derecha);
+	Pareja<list<Pareja<double, double> >, list<Pareja<double, double> > > P(izquierda, derecha);
 
 	return P;
 }
 
-Lista<Pareja<double,double> > filtraBanda(Lista<Pareja<double,double> > &l, double distanciaMaspequenaHastaAhora, double x1){
+list<Pareja<double, double>> filtraBanda(list<Pareja<double, double>> &l, double distanciaMaspequenaHastaAhora, double x1){
 	//eje 0 delta delta x otro 
-	Lista<Pareja<double,double> > listaDeltas;
-	Lista<Pareja<double,double> >::Iterador it = l.principio();
+	list<Pareja<double, double> > listaDeltas;
+	list<Pareja<double, double> >::iterator it = l.begin();
 	double menosDelta = x1-distanciaMaspequenaHastaAhora;
 	double masDelta = x1+distanciaMaspequenaHastaAhora;
 
-	while(it != l.final()){
-		if((it.elem().primero() >= menosDelta) && (it.elem().primero() <= masDelta)){
-			listaDeltas.ponDr(it.elem());
+	while(it != l.end()){
+		if((it->primero() >= menosDelta) && (it->primero() <= masDelta)){
+			listaDeltas.push_back(*it);
 		}
-		it.avanza();
+		it++;
 	}
 
 	return listaDeltas;
 }
 
-double recorreBanda(Lista<Pareja<double,double> > &l,double delta){
+double recorreBanda(list<Pareja<double,double>> &l, double delta){
 	double distancia=delta;
-	Lista<Pareja<double,double> > ::Iterador it = l.principio();
+	list<Pareja<double, double>>::iterator it = l.begin();
 	
-	while(it!=l.final()){
-		Pareja<double,double> P1 = it.elem();
-		Lista<Pareja<double,double> > ::Iterador it2 = it;
-		it2.avanza();
+	while(it!=l.end()){
+		Pareja<double,double> P1 = *it;
+		list<Pareja<double, double>>::iterator it2 = it;
+		it2++;
 		int i = 0;
-		while(i<7 && (it2!=l.final())){// <= para que lo haga 7 veces 
-				Pareja<double,double> P2 = it2.elem();
+		while(i<7 && (it2!=l.end())){// <= para que lo haga 7 veces 
+				Pareja<double,double> P2 = *it2;
 
-				if(distanciaEntrePuntos(P1,P2)<distancia)
-					distancia = distanciaEntrePuntos(P1,P2);
-			it2.avanza();
+				if (distanciaEntrePuntos(P1, P2) < distancia){
+					distancia = distanciaEntrePuntos(P1, P2);
+				}
+			it2++;
 			i++;
 		}
-		it.avanza();
+		it++;
 	}
 
 	return distancia;
 }
 
-Lista<Pareja<double,double> > concatenaLista(Lista<Pareja<double,double> > &listaA, Lista<Pareja<double,double> > &listaB){
-	Lista<Pareja<double,double> >::Iterador it = listaA.principio();
-	Lista<Pareja<double,double> >::Iterador it2 = listaB.principio();
-	Lista<Pareja<double,double> > listaUnion;
+list<Pareja<double, double>> concatenaLista(list<Pareja<double, double>> &listaA, list<Pareja<double, double>> &listaB){
+	list<Pareja<double, double>>::iterator it = listaA.begin();
+	list<Pareja<double, double>>::iterator it2 = listaB.begin();
+	list<Pareja<double, double>> listaUnion;
 	
-	while ((it != listaA.final()) && (it2 != listaB.final())) {
-		if (it.elem().segundo() <= it2.elem().segundo()) {
-			listaUnion.ponDr(it.elem());
-			it.avanza();
+	while ((it != listaA.end()) && (it2 != listaB.end())) {
+		if (it->segundo() <= it2->segundo()) {
+			listaUnion.push_back(*it);
+			it++;
 		} else {
-			listaUnion.ponDr(it2.elem());
-			it2.avanza();
+			listaUnion.push_back(*it2);
+			it2++;
 		}
 	}
 		   
-	while (it != listaA.final()) {
-		listaUnion.ponDr(it.elem());
-		it.avanza();
+	while (it != listaA.end()) {
+		listaUnion.push_back(*it);
+		it++;
 	}
 
-	while (it2 != listaB.final()) {
-		   listaUnion.ponDr(it2.elem());
-		   it2.avanza();
+	while (it2 != listaB.end()) {
+		listaUnion.push_back(*it2);
+		   it2++;
 	 }
 		   
 	return listaUnion;
 }
 
-double solucionLogaritmica(Lista<Pareja<double,double> > &puntos,int n){
+double solucionLogaritmica(list<Pareja<double,double>> &puntos, int n){
 	double sol;
 	Pareja<double,double> p1;
 	Pareja<double,double> p2;
@@ -248,13 +249,13 @@ double solucionLogaritmica(Lista<Pareja<double,double> > &puntos,int n){
 	}else{ // Dividimos la nube en dos n >= 4 
 		int m1 = n / 2;
 		int m2 = n - m1;
-		Pareja<Lista<Pareja<double,double> >,Lista<Pareja<double,double> > > par = divideLista(puntos,m1);	
+		Pareja<list<Pareja<double, double> >, list<Pareja<double, double> > > par = divideLista(puntos, m1);
 
-		Lista<Pareja<double,double> > I = par.primero();	
-		Lista<Pareja<double,double> > D = par.segundo();
+		list<Pareja<double, double> > I = par.primero();
+		list<Pareja<double, double> > D = par.segundo();
 
-		double xMinima = I.ultimo().primero();
-		double xMaxima = D.primero().primero();
+		double xMinima = I.back().primero();
+		double xMaxima = D.front().primero();
 
 		double xl = (xMinima + xMaxima) / 2;
 
@@ -266,9 +267,9 @@ double solucionLogaritmica(Lista<Pareja<double,double> > &puntos,int n){
 		double delta = min(sol1, sol2);
 
 		//Unimos las dos listas de numeros ordenadas por la Y
-		Lista<Pareja<double,double> > unionListas = concatenaLista(I,D);
+		list<Pareja<double, double> > unionListas = concatenaLista(I, D);
 		// Filtramos los puntos segun un delta dado
-		Lista<Pareja<double,double> > B = filtraBanda(unionListas,delta,xl);
+		list<Pareja<double, double> > B = filtraBanda(unionListas, delta, xl);
 
 		dist=recorreBanda(B,delta);
 
