@@ -1,6 +1,4 @@
 #include "ordenacion.h"
-#include <iostream>
-using namespace std;
 
 void particion (Pareja<double,double> v[],int a,int b,int& p) {
 	int i, j;

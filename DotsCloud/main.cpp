@@ -1,10 +1,4 @@
-﻿#include <time.h>
-#include <list>
-#include "Pareja.h"
-#include "test.h"
-
-#include <iostream>
-using namespace std;
+﻿#include "test.h"
 
 int main(){
 	srand((int)time(NULL));

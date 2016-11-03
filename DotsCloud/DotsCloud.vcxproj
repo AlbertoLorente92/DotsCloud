@@ -70,7 +70,6 @@
     <ClCompile Include="Tiempos.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Excepciones.h" />
     <ClInclude Include="ordenacion.h" />
     <ClInclude Include="Pareja.h" />
     <ClInclude Include="test.h" />

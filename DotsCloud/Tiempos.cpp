@@ -1,21 +1,16 @@
 #include "Tiempos.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-
-using namespace std;
 
 bool muestraTiempos(float tiempo,int tamano,int opcion,double distancia){
-	ofstream archivo;
+	std::ofstream archivo;
 	bool b = true;
 
 	switch(opcion){
 		case 1:											//Cuadratico
-			archivo.open("TiemposCuadratico.txt",fstream::out | fstream::app);
+			archivo.open("TiemposCuadratico.txt", std::fstream::out | std::fstream::app);
 		break;
 
 		case 2:											//Logaritmico
-			archivo.open("TiemposLogaritmico.txt",fstream::out | fstream::app);
+			archivo.open("TiemposLogaritmico.txt", std::fstream::out | std::fstream::app);
 		break;
 
 		default:
@@ -24,7 +19,7 @@ bool muestraTiempos(float tiempo,int tamano,int opcion,double distancia){
 	}
 		
 	if(b){
-		archivo << tamano << "\t" << tiempo  << "\t" << distancia << endl;
+		archivo << tamano << "\t" << tiempo << "\t" << distancia << std::endl;
 	}
 
 	archivo.close();

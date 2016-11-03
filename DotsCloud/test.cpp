@@ -1,15 +1,4 @@
-﻿#include "Tiempos.h"
-#include "test.h"
-#include "ordenacion.h"
-
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include <cstdlib>
-#include <math.h>
-#include <algorithm>
-
-using namespace std;
+﻿#include "test.h"
 
 void busca(int i,int tipo,list<Pareja<double,double> > &listaPuntos){
 	float tiempo;
@@ -157,7 +146,7 @@ Pareja<list<Pareja<double, double>>, list<Pareja<double, double>>> divideLista(l
 		it++;
 		i++;
 	}
-	while(i<puntos.size()){
+	while(i<(int)puntos.size()){
 		derecha.push_back(*it);
 		it++;
 		i++;
