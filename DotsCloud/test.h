@@ -20,7 +20,7 @@ void ordenaPorEjeX(list<Pareja<double, double> > &puntos);
 
 void ordenaPorEjeY(list<Pareja<double, double> > &puntos);
 
-list<Pareja<double, double>> generaPuntos(int n);
+int generaPuntos(int num_dots,int precision,int range,Pareja<double, double> list[]);
 
 double distanciaEntrePuntos(Pareja<double,double> p1,Pareja<double,double> p2);
 

@@ -86,18 +86,19 @@ void ordenaPorEjeY(list<Pareja<double,double>> &puntos){
 	delete[] a;
 }
 
-list<Pareja<double, double>> generaPuntos(int n){
-	list<Pareja<double, double>> listaPuntos;
+int generaPuntos(int num_dots,int precision,int range,Pareja<double, double> list[]){
+	if(num_dots<=0)
+		return -1;
+	if((precision % 10) !=0)
+		return -2;
+	if(range <= 0)
+		return -3;
 
-	for(int i = 0; i < n; i++){
-		double n1 = (rand() % 20000)/100.00 -100;
-		double n2 = (rand() % 20000)/100.00 -100;
-		Pareja<double,double> a(n1,n2);
-
-		listaPuntos.push_back(a);
+	for(int i = 0; i < num_dots; i++){
+		list[i] = (Pareja<double,double> (((rand() % (precision*range*2))/(double)precision) -(double)range,((rand() % (precision*range*2))/(double)precision) -(double)range));
 	}
 
-	return listaPuntos;
+	return 0;
 }
 
 double distanciaEntrePuntos(Pareja<double,double> p1,Pareja<double,double> p2){
