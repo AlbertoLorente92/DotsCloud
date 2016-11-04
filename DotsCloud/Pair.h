@@ -24,6 +24,7 @@ public:
 		_B = other.second();
 		return *this;
 	}
+
 private:
 	T _A;
 	E _B;

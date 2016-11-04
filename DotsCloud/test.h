@@ -14,6 +14,9 @@
 #include <iostream>
 using namespace std;
 
+int find(const int& iter,const int& type,const Pair<double,double> list[],double& timeSpend,double& dist);
+int quadraticSolution(const Pair<double, double> list[],const int& num_dots,double &dist);
+
 void busca(int i, int tipo, list<Pareja<double, double> > &listaPuntos);
 
 void ordenaPorEjeX(list<Pareja<double, double> > &puntos);

@@ -2,7 +2,7 @@
 #define ORDENACION_H
 #include "Pareja.h"
 #include <stdlib.h>
-
+#include "Pair.h"
 /*			 ORDENACION RAPIDA
 
 Nuestro pivote es i(la posicion 0 al principio), y vamos ordenando los demás elementos a izquierda o derecha del pivote,

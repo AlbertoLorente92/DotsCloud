@@ -1,5 +1,59 @@
 ﻿#include "test.h"
 
+
+int find(const int& num_dots,const int& type,const Pair<double,double> list[],double& timeSpend,double& dist){	
+	clock_t tClk=0;	
+
+	switch(type){
+		case 1:											//Cuadratico		
+			tClk = clock();
+			quadraticSolution(list,num_dots,dist);
+			timeSpend = ((double) (clock() - tClk)) / CLOCKS_PER_SEC;	
+		break;
+
+		case 2:											//Logaritmico
+			/*tIni = clock();	
+			cout << "Logaritmica - " << " N.ptos = " << i;
+			ordenaPorEjeX(listaPuntos);
+			distancia = solucionLogaritmica(listaPuntos,listaPuntos.size());
+			tFin = clock();
+			cout << " Distancia = " << distancia; //SolucionLogaritmica
+			cout << endl;	*/
+		break;
+
+		default:
+			return -1;
+		break;
+	}
+
+	return 0;
+}
+
+double distBetweenDots(Pair<double,double> dot1,Pair<double,double> dot2){
+	return sqrt(pow(dot1.first()-dot2.first(),2) + pow(dot1.second()-dot2.second(),2));
+}
+
+int quadraticSolution(const Pair<double, double> list[],const int& num_dots,double &dist){
+	dist = DBL_MAX;
+
+	for(int i = 0; i < num_dots; i++){
+		for(int j = i; j < num_dots; j++){
+			if(distBetweenDots(list[i],list[j]) < dist){
+				dist = distBetweenDots(list[i],list[j]);
+			}
+		}
+	}
+
+	if(dist == DBL_MAX){
+		return -1;
+	}else{
+		return 0;
+	}
+}
+
+
+/////
+
 void busca(int i,int tipo,list<Pareja<double,double> > &listaPuntos){
 	float tiempo;
 	clock_t tIni=0;		
@@ -109,7 +163,7 @@ double distanciaEntrePuntos(Pareja<double,double> p1,Pareja<double,double> p2){
 double solucionDirecta(list<Pareja<double, double> > &puntos){
 	double distancia=285;
 
-	list<Pareja<double, double> >::iterator itPunto = puntos.begin();// puntos.principio();
+	list<Pareja<double, double> >::iterator itPunto = puntos.begin();
 
 	while(itPunto != puntos.end()){
 		list<Pareja<double, double> >::iterator itCompara = itPunto;
