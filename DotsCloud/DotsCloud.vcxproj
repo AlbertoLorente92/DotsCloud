@@ -68,7 +68,7 @@
     <ClCompile Include="DotsInOut.cpp" />
     <ClCompile Include="GenerateDots.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ordenacion.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Tiempos.cpp" />
   </ItemGroup>
@@ -76,7 +76,7 @@
     <ClInclude Include="CSVInOut.h" />
     <ClInclude Include="DotsInOut.h" />
     <ClInclude Include="GenerateDots.h" />
-    <ClInclude Include="ordenacion.h" />
+    <ClInclude Include="Order.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="Pareja.h" />
     <ClInclude Include="test.h" />
