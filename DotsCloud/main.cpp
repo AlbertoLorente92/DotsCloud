@@ -24,7 +24,7 @@ int main(int argc, const char* argv[]){
 		}
 	}else if(argc == 4){
 		// Execute program
-		// DotsCloud.exe exit.txt 1
+		// DotsCloud.exe exit.txt 1 salida.csv 
 		int num_dots;
 		Pair<double, double>* list; 
 		if(readFile(argv[1],list,num_dots)==0){

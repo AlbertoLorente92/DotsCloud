@@ -6,6 +6,7 @@
 
 #include <list>
 #include <time.h>
+#include <omp.h>
 using namespace std;
 
 int find(const int& iter,const int& type,Pair<double,double> list[],double& timeSpend,double& dist);
