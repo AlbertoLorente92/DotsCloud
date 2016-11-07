@@ -2,7 +2,7 @@
 
 void writeFile(const std::string& fileName,const Pair<double, double> list[],const int& num_dots){
 	std::ofstream file;
-	file.open(fileName);
+	file.open("aux.txt");
 	file << num_dots << std::endl;
 	for(int i = 0; i < num_dots;i++){
 		file << list[i].first() << " " << list[i].second() << std::endl;

@@ -5,6 +5,7 @@
 
 #include <time.h>
 #include <cstdlib>
+#include <random>
 
 int fillListDots(const int& num_dots,const int& precision,const int& range,Pair<double, double> list[]);
 

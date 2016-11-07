@@ -11,10 +11,9 @@
 	argv[4] -> "Precision"
 	argv[5] -> "Range of dots {-argv[5],+argv[5]}"
 */
-std::string getType(const int& type);
+char* getType(const int& type);
 
 int main(int argc, const char* argv[]){
-
 	if(argc == 6 && (atoi(argv[2]))==0){
 		// Create list of dots
 		// DotsCloud.exe 15000 0 exit.txt 100 100
@@ -29,19 +28,22 @@ int main(int argc, const char* argv[]){
 		Pair<double, double>* list; 
 		if(readFile(argv[1],list,num_dots)==0){
 			double timeSpend,dist;
-			find(num_dots,atoi(argv[2]),list,timeSpend,dist);
-
-			printf("n^2 - Dots N = %i",num_dots);
-			printf(" Dist = %lf",dist);	
-			printf(" Time = %lf\n",timeSpend);	
-			writeCSV(argv[3],getType(atoi(argv[2])),num_dots,timeSpend,dist);
+			if(find(num_dots,atoi(argv[2]),list,timeSpend,dist)==0){
+				printf(getType(atoi(argv[2])));
+				printf(" Dots N = %i",num_dots);
+				printf(" Dist = %lf",dist);	
+				printf(" Time = %lf\n",timeSpend);	
+				writeCSV(argv[3],getType(atoi(argv[2])),num_dots,timeSpend,dist);
+			}else{
+				printf("err");
+			}
 		}
 	}
 
 	return 0;
 }
 
-std::string getType(const int& type){
+char* getType(const int& type){
 	switch(type){
 		case 1:													
 			return "n^2";

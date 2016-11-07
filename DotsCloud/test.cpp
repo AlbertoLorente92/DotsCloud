@@ -6,16 +6,18 @@ double distBetweenDots(Pair<double,double> dot1,Pair<double,double> dot2){
 
 int quadraticSolution(const Pair<double, double> list[],const int& num_dots,double &dist){
 	dist = DBL_MAX;
-	
+
 	omp_set_dynamic(0);
 	omp_set_num_threads(8); 
 	#pragma omp parallel
 	{
 		#pragma omp for schedule(static)
 		for(int i = 0; i < num_dots; i++){
-			for(int j = i; j < num_dots; j++){
+			for(int j = i+1; j < num_dots; j++){
+
 				if(distBetweenDots(list[i],list[j]) < dist){
 					dist = distBetweenDots(list[i],list[j]);
+					
 				}
 			}
 		}
@@ -92,7 +94,7 @@ double logarithmicallySolution(Pair<double,double> list_dots[],const int& num_do
 
 int find(const int& num_dots,const int& type,Pair<double,double> list[],double& timeSpend,double& dist){	
 	clock_t tClk=0;	
-
+ 
 	switch(type){
 		case 1:													
 			tClk = clock();
