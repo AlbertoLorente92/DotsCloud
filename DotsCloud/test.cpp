@@ -4,8 +4,8 @@ double distBetweenDots(Pair<double,double> dot1,Pair<double,double> dot2){
 	return sqrt(pow(dot1.first()-dot2.first(),2) + pow(dot1.second()-dot2.second(),2));
 }
 
-int quadraticSolution(const Pair<double, double> list[],const int& num_dots,double &dist){
-	dist = DBL_MAX;
+double quadraticSolution(const Pair<double, double> list[],const int& num_dots){
+	double dist = DBL_MAX;
 
 	omp_set_dynamic(0);
 	omp_set_num_threads(8); 
@@ -14,7 +14,6 @@ int quadraticSolution(const Pair<double, double> list[],const int& num_dots,doub
 		#pragma omp for schedule(static)
 		for(int i = 0; i < num_dots; i++){
 			for(int j = i+1; j < num_dots; j++){
-
 				if(distBetweenDots(list[i],list[j]) < dist){
 					dist = distBetweenDots(list[i],list[j]);
 					
@@ -22,10 +21,11 @@ int quadraticSolution(const Pair<double, double> list[],const int& num_dots,doub
 			}
 		}
 	}
+
 	if(dist == DBL_MAX){
-		return -1;
-	}else{
 		return 0;
+	}else{
+		return dist;
 	}
 }
 
@@ -75,7 +75,7 @@ double logarithmicallySolution(Pair<double,double> list_dots[],const int& num_do
 	double dist;
 
 	if (num_dots <= 3) {
-		quadraticSolution(list_dots,num_dots,dist);
+		quadraticSolution(list_dots,num_dots);
 		orderYAxis(list_dots,num_dots);
 	}else{ 
 
@@ -93,12 +93,16 @@ double logarithmicallySolution(Pair<double,double> list_dots[],const int& num_do
 }
 
 int find(const int& num_dots,const int& type,Pair<double,double> list[],double& timeSpend,double& dist){	
-	clock_t tClk=0;	
+	clock_t tClk;	
  
+	if(num_dots<=0){
+		return -2;
+	}
+
 	switch(type){
 		case 1:													
 			tClk = clock();
-			quadraticSolution(list,num_dots,dist);
+			dist = quadraticSolution(list,num_dots);
 			timeSpend = ((double) (clock() - tClk)) / CLOCKS_PER_SEC;	
 		break;
 
@@ -113,5 +117,9 @@ int find(const int& num_dots,const int& type,Pair<double,double> list[],double& 
 		break;
 	}
 
-	return 0;
+	if(dist < 0){
+		return -1;
+	}else{
+		return 0;
+	}
 }

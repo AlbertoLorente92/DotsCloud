@@ -23,7 +23,7 @@ int main(int argc, const char* argv[]){
 		}
 	}else if(argc == 4){
 		// Execute program
-		// DotsCloud.exe exit.txt 1 salida.csv 
+		// DotsCloud.exe salida.txt 1 salida.csv 
 		int num_dots;
 		Pair<double, double>* list; 
 		if(readFile(argv[1],list,num_dots)==0){
@@ -35,8 +35,10 @@ int main(int argc, const char* argv[]){
 				printf(" Time = %lf\n",timeSpend);	
 				writeCSV(argv[3],getType(atoi(argv[2])),num_dots,timeSpend,dist);
 			}else{
-				printf("err");
+				printf("Execution error");
 			}
+		}else{
+			printf("Reading error");
 		}
 	}
 

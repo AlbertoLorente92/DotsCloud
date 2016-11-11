@@ -21,12 +21,19 @@ int readFile(const std::string& fileName,Pair<double, double>* &list,int& num_do
 	file >> num_dots;
 	list = new Pair<double, double>[num_dots];
 
-	for(int i = 0; i < num_dots;i++){		
+	int i = 0;
+	while(!file.eof()){
 		file >> x;
 		file >> y;
 		list[i] = Pair<double,double> (x,y);
+		i++;
 	}
+
 	file.close();
 
-	return 0;
+	if(i==num_dots){
+		return 0;
+	}else{
+		return -2;
+	}
 }
