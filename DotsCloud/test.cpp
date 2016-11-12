@@ -75,7 +75,7 @@ double logarithmicallySolution(Pair<double,double> list_dots[],const int& num_do
 	double dist;
 
 	if (num_dots <= 3) {
-		quadraticSolution(list_dots,num_dots);
+		quadraticSolution(list_dots,num_dots,1);
 		orderYAxis(list_dots,num_dots);
 	}else{ 
 

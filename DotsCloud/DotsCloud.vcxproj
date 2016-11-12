@@ -71,7 +71,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="Tiempos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSVInOut.h" />
@@ -79,9 +78,7 @@
     <ClInclude Include="GenerateDots.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Pair.h" />
-    <ClInclude Include="Pareja.h" />
     <ClInclude Include="test.h" />
-    <ClInclude Include="Tiempos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

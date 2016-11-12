@@ -2,15 +2,27 @@
 
 /**
 	argv[0] -> ".exe"
-	argv[1] -> "Num dots || Readfile.txt (list)"
-	argv[2] -> "Execution type [{0,CreateDotsCloud},{1,quadratic},{2,log}]"
-	argv[3] -> "Writefile.txt (list) || Writefile.txt (result)"
-	argv[4] -> "Precision || num_threads"
+	argv[1] -> "Num dots				||	Readfile.txt (list)"
+	argv[2] -> "							Execution type [{0,CreateDotsCloud},{1,quadratic},{2,log}]"
+	argv[3] -> "Writefile.txt (list)	||	Writefile.txt (result)"
+	argv[4] -> "Precision				||	num_threads"
 	argv[5] -> "Range of dots {-argv[5],+argv[5]}"
 */
+
+
+/**
+	Check if the string str is a valid Integer. If not, this function will return false. Otherwise will return true and the value of the integer
+*/
+bool checkIsInteger(const string& str,int& value);
+
 char* getType(const int& type);
 
-int main(int argc, const char* argv[]){
+int main(int argc, char* argv[]){
+	string str = argv[1];
+	int x;
+	if(checkIsInteger(argv[1],x))
+		printf("%i",x);
+
 	if(argc == 6 && (atoi(argv[2]))==0){
 		// Create list of dots
 		// DotsCloud.exe 15000 0 exit.txt 100 100
@@ -40,6 +52,16 @@ int main(int argc, const char* argv[]){
 	}
 
 	return 0;
+}
+
+bool checkIsInteger(const string& str,int& value){
+	for(int i = 0; i < (int)str.length(); i++){
+		if(str.at(i)!='-' && (str.at(i) < (int)'0' || str.at(i) > (int)'9')){
+			return false;
+		}
+	}
+	value = stoi(str);
+	return true;
 }
 
 char* getType(const int& type){

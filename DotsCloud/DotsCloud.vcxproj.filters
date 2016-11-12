@@ -21,9 +21,6 @@
     <ClCompile Include="test.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Tiempos.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="GenerateDots.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -38,13 +35,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pareja.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="test.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Tiempos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GenerateDots.h">
