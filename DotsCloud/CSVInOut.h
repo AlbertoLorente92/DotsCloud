@@ -4,8 +4,10 @@
 #include <string>
 #include <fstream>
 
+/**
+	 This function write the results of the find function in fileName with the following style:
+	 type[n^2,log],num_dots,timeSpend,dist
+*/
 void writeCSV(const std::string& fileName,const std::string& type,const int& num_dots,const double& timeSpend,const double& dist);
-
-//int readFile(const std::string& fileName,Pair<double, double>* &list,int& num_dots);
 
 #endif // __CSVINOUT_H

@@ -4,11 +4,11 @@ double distBetweenDots(Pair<double,double> dot1,Pair<double,double> dot2){
 	return sqrt(pow(dot1.first()-dot2.first(),2) + pow(dot1.second()-dot2.second(),2));
 }
 
-double quadraticSolution(const Pair<double, double> list[],const int& num_dots){
+double quadraticSolution(const Pair<double, double> list[],const int& num_dots,const int& num_threads){
 	double dist = DBL_MAX;
 
 	omp_set_dynamic(0);
-	omp_set_num_threads(8); 
+	omp_set_num_threads(num_threads); 
 	#pragma omp parallel
 	{
 		#pragma omp for schedule(static)
@@ -92,17 +92,21 @@ double logarithmicallySolution(Pair<double,double> list_dots[],const int& num_do
 	return dist;
 }
 
-int find(const int& num_dots,const int& type,Pair<double,double> list[],double& timeSpend,double& dist){	
+int find(const int& num_dots,const int& type,Pair<double,double> list[],const int& num_threads,double& timeSpend,double& dist){	
 	clock_t tClk;	
  
 	if(num_dots<=0){
 		return -2;
 	}
 
+	if(type==1 && num_threads <= 0){
+		return -3;
+	}
+
 	switch(type){
 		case 1:													
 			tClk = clock();
-			dist = quadraticSolution(list,num_dots);
+			dist = quadraticSolution(list,num_dots,num_threads);
 			timeSpend = ((double) (clock() - tClk)) / CLOCKS_PER_SEC;	
 		break;
 

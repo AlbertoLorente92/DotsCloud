@@ -1,12 +1,14 @@
 #include "GenerateDots.h"
 
 int fillListDots(const int& num_dots,const int& precision,const int& range,Pair<double, double> list[]){
-	if(num_dots<=0)
+	if(num_dots <= 0)
 		return -1;
-	if((precision % 10) !=0)
+	if(precision <= 0)
 		return -2;
-	if(range <= 0)
+	if((precision % 10) != 0)
 		return -3;
+	if(range <= 0)
+		return -4;
 
 
 	std::random_device rd; // obtain a random number from hardware
