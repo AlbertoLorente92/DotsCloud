@@ -1,7 +1,11 @@
 #ifndef __ORDER_H
 #define __ORDER_H
 #include <stdlib.h>
+#include <stdio.h>
+
 #include "Pair.h"
+
+int compareY(const void * a, const void * b);
 
 /**
 	 This function will order the list of points with length num_dots by the X axis.

@@ -14,10 +14,8 @@
 	 @return 
 	 0  -> Correct.
 	 -1 -> Error, num_dots MUST be a value above zero.
-	 -2 -> Error, precision MUST be a value above zero.
-	 -3 -> Error, precision MUST be a value multiple of ten.
-	 -4 -> Error, range MUST be a value above zero.
+	 -2 -> Error, fMin value MUST be a value above fMax value.
 */
-int fillListDots(const int& num_dots,const int& precision,const int& range,Pair<double, double> list[]);
+int fillListDots(const int& num_dots,const double& fMin,const double& fMax,Pair<double, double> list[]);
 
 #endif // __TEST_H

@@ -1,30 +1,19 @@
 #include "GenerateDots.h"
 
-int fillListDots(const int& num_dots,const int& precision,const int& range,Pair<double, double> list[]){
-	int newPrecision = precision;
+double fRand(double fMin, double fMax){
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+
+int fillListDots(const int& num_dots,const double& fMin,const double& fMax,Pair<double, double> list[]){
 	if(num_dots <= 0)
 		return -1;
-	if(precision < 0)
+	if(fMin > fMax)
 		return -2;
-	if((precision % 10) != 0)
-		return -3;
-	if(range <= 0)
-		return -4;
 
-	if(precision == 0){
-		newPrecision = 1;
-	}
-
-	std::random_device rd; // obtain a random number from hardware
-	std::mt19937 eng(rd()); // seed the generator
-	std::uniform_int_distribution<> distr(-range, range); // define the range
-
-	//((double)((double)distr(eng))/((double)precision));
-	//srand((unsigned int)time(NULL));
-
+	srand((unsigned int)time(NULL));
 	for(int i = 0; i < num_dots; i++){
-		//list[i] = (Pair<double,double> (((rand() % (precision*range))/(double)precision) -(double)range,((rand() % (precision*range))/(double)precision) -(double)range));
-		list[i] = (Pair<double,double>(((double)((double)distr(eng))/((double)newPrecision)),((double)((double)distr(eng))/((double)newPrecision))));
+		list[i] = (Pair<double,double>(fRand(fMin,fMax),fRand(fMin,fMax)));
 	}
 
 	return 0;

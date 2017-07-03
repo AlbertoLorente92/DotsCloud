@@ -31,7 +31,7 @@ int readFile(const std::string& fileName,Pair<double, double>* &list,int& num_do
 
 	file.close();
 
-	if(i==num_dots){
+	if((i-1)==num_dots){
 		return 0;
 	}else{
 		return -2;

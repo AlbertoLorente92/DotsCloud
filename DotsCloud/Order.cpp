@@ -22,6 +22,9 @@ void quickSortX (Pair<double,double> v[],int num){
 }
 
 void orderYAxis(Pair<double, double> list[],const int& num_dots){
+	printf("\n%i\n",list);
+	printf("OrderY - %lf\n",list[0]);
+	printf("TamY - %i\n",num_dots);
 	quickSortY(list,num_dots);
 }
 

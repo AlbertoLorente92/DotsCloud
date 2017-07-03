@@ -28,4 +28,6 @@ using namespace std;
 */
 int find(const int& num_dots,const int& type,Pair<double,double> list[],const int& num_threads,double& timeSpend,double& dist);
 
+int find(const int& num_dots,const int& type,Pair<double,double> list[],double& timeSpend,double& dist);
+
 #endif // __TEST_H

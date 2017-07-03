@@ -13,6 +13,10 @@
 /**
 	Check if the string str is a valid Integer. If not, this function will return false. Otherwise will return true and the value of the integer
 */
+void getSomethingByConsole(string ask,int &param);
+
+bool executeWithParams(int num_dots_min,int num_dots_max,int num_repetitions,Pair<double, double>* list,string fileResExit,int increment,int type, int num_proces);
+
 Pair<double, double>* copyList(Pair<double, double>* list,int num_dots_max);
 
 void fullExecution();
@@ -21,13 +25,52 @@ bool checkIsInteger(const string& str,int& value);
 
 char* getType(const int& type);
 
-
 int main(int argc, char* argv[]){
-	
-	if(argc == 1){
+
+		// Create list of dots
+		// DotsCloud.exe 15000 0 exit.txt 100 100
+
+	/*Pair<double, double>* list = new Pair<double, double>[50000];
+		if(fillListDots(50000,-100.0,100.0,list)==0){
+			writeFile("exit2.txt",list,50000);
+		}*/
+
+
+		int num_dots;
+		Pair<double, double>* list; 
+		/*if(readFile("exit2.txt",list,num_dots)==0){
+			double timeSpend,dist;
+			if(find(num_dots,1,list,8,timeSpend,dist)==0){
+				printf(getType(1));
+				printf(" Dots N = %i",num_dots);
+				printf(" Dist = %lf",dist);	
+				printf(" Time = %lf\n",timeSpend);	
+				writeCSV("resultados.txt",getType(1),num_dots,timeSpend,dist);
+			}else{
+				printf("Execution error");
+			}
+		}else{
+			printf("Reading error");
+		}*/
+
+		if(readFile("exit2.txt",list,num_dots)==0){
+			double timeSpend,dist;
+			if(find(num_dots,2,list,8,timeSpend,dist)==0){
+				printf(getType(1));
+				printf(" Dots N = %i",num_dots);
+				printf(" Dist = %lf",dist);	
+				printf(" Time = %lf\n",timeSpend);	
+				writeCSV("resultados.txt",getType(2),num_dots,timeSpend,dist);
+			}else{
+				printf("Execution error");
+			}
+		}else{
+			printf("Reading error");
+		}
+	/*if(argc == 1){
 		fullExecution();
 	}
-
+	
 	if(argc == 6 && (atoi(argv[2]))==0){
 		// Create list of dots
 		// DotsCloud.exe 15000 0 exit.txt 100 100
@@ -54,9 +97,52 @@ int main(int argc, char* argv[]){
 		}else{
 			printf("Reading error");
 		}
+	}*/
+
+
+	system("PAUSE");
+	return 0;
+}
+
+void getSomethingByConsole(string ask,int &param){
+	int number = 0;
+	bool ok = false;
+	string read;
+	do{
+		cout << ask;
+		cin >> read;
+		if(checkIsInteger(read,number) && number>=0){
+			param = number;
+			ok = true;
+		}else{
+			cout << "Input incorrect." << endl;
+		}
+	}while(!ok);
+}
+
+bool executeWithParams(int num_dots_min,int num_dots_max,int num_repetitions,Pair<double, double>* list,string fileResExit,int increment,int type, int num_proces){
+	double timeSpend,dist;
+	bool ok = true;
+	int number = num_dots_min;
+	while(number <= num_dots_max && ok){
+		for(int i = 0; i < num_repetitions && ok; i++){
+			Pair<double, double>* copy = copyList(list,number);
+
+			if(ok && find(number,type,copy,num_proces,timeSpend,dist)==0){
+				printf(getType(type));
+				printf(" Dots N = %i",number);
+				printf(" Dist = %lf",dist);	
+				printf(" Time = %lf\n",timeSpend);	
+				writeCSV(fileResExit,getType(type),number,timeSpend,dist);
+			}else{
+				printf("log - Execution error");
+				ok = false;
+			}
+		}
+		number = number + increment;
 	}
 
-	return 0;
+	return ok;
 }
 
 Pair<double, double>* copyList(Pair<double, double>* list,int num_dots){
@@ -68,93 +154,20 @@ Pair<double, double>* copyList(Pair<double, double>* list,int num_dots){
 }
 
 void fullExecution(){
-	int num_dots_min, num_dots_max, increment, num_repetitions, precision, range;
+	int num_dots_min, num_dots_max, increment, num_repetitions, precision, range,num_process;
 	string fileDotsExit,fileResExit;
 
-	string read;
-	bool ok;
-	int number;
 	cout << "Welcome to the full execution of DotsCloud" << endl;
 	cout << "This version will execute the n^2 and the log solution to the problem" << endl;
 	cout << "Please enter the following params" << endl;
 
-	ok = false;
-	number = 0;
-	do{
-		cout << "Min number of dots in the cloud  (positive integer): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>0){
-			ok = true;
-			num_dots_min = number;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
-
-	ok = false;
-	number = 0;
-	do{
-		cout << "Number of dots to increment in the cloud  (positive integer): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>0){
-			ok = true;
-			increment = number;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
-
-	ok = false;
-	number = 0;
-	do{
-		cout << "Max number of dots in the cloud  (positive integer): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>0){
-			ok = true;
-			num_dots_max = number;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
-
-	ok = false;
-	number = 0;
-	do{
-		cout << "Repetitions of the execution  (positive integer): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>0){
-			ok = true;
-			num_repetitions = number;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
-
-	number = 0;
-	ok = false;
-	do{
-		cout << "Range of dots in the cloud (positive integer): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>0){
-			range = number;
-			ok = true;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
-
-	number = 0;
-	ok = false;
-	do{
-		cout << "Precision, number of decimals in the dots (positive integer [0,10,100,1000,...)): ";
-		cin >> read;
-		if(checkIsInteger(read,number) && number>=0){
-			precision = number;
-			ok = true;
-		}else{
-			cout << "Input incorrect." << endl;
-		}
-	}while(!ok);
+	getSomethingByConsole("Min number of dots in the cloud  (positive integer): ",num_dots_min);
+	getSomethingByConsole("Number of dots to increment in the cloud  (positive integer): ",increment);
+	getSomethingByConsole("Max number of dots in the cloud  (positive integer): ",num_dots_max);
+	getSomethingByConsole("Repetitions of the execution  (positive integer): ",num_repetitions);
+	getSomethingByConsole("Range of dots in the cloud (positive integer): ",range);
+	getSomethingByConsole("Precision, number of decimals in the dots (positive integer [0,10,100,1000,...)): ",precision);
+	getSomethingByConsole("Number of procesors (positive integer): ",num_process);
 
 	cout << "File where to write the biggest dots cloud (string): ";
 	cin >> fileDotsExit;
@@ -169,54 +182,13 @@ void fullExecution(){
 		return;
 	}
 
-	;
-
 	cout << "Starting..." << endl;
-	double timeSpend,dist;
-
-	ok = true;
-	number = num_dots_min;
-
-	while(number <= num_dots_max && ok){
-		for(int i = 0; i < num_repetitions && ok; i++){
-			Pair<double, double>* copy = copyList(list,number);
-		
-			if(find(number,1,copy,8,timeSpend,dist)==0){
-				printf(getType(1));
-				printf(" Dots N = %i",number);
-				printf(" Dist = %lf",dist);	
-				printf(" Time = %lf\n",timeSpend);	
-				writeCSV(fileResExit,getType(1),number,timeSpend,dist);
-			}else{
-				printf("n^2 - Execution error");
-				ok = false;
-			}
-		}
-		number = number + increment;
+	if(executeWithParams(num_dots_min,num_dots_max,num_repetitions,list,fileResExit,increment,1,num_process)){
+		executeWithParams(num_dots_min,num_dots_max,num_repetitions,list,fileResExit,increment,2,0);
 	}
 
-	number = num_dots_min;
-	while(number <= num_dots_max && ok){
-		for(int i = 0; i < num_repetitions && ok; i++){
-			Pair<double, double>* copy = copyList(list,number);
-
-			if(ok && find(number,2,copy,8,timeSpend,dist)==0){
-				printf(getType(2));
-				printf(" Dots N = %i",number);
-				printf(" Dist = %lf",dist);	
-				printf(" Time = %lf\n",timeSpend);	
-				writeCSV(fileResExit,getType(2),number,timeSpend,dist);
-			}else{
-				printf("log - Execution error");
-				ok = false;
-			}
-		}
-		number = number + increment;
-	}
-
-
-	
-
+	cout << "Execution finish" << endl;
+	system("pause");
 }
 
 bool checkIsInteger(const string& str,int& value){
